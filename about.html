@@ -5,7 +5,7 @@
 <title>日文句子播放 + 自适应视频</title>
 <style>
   body {
-    
+    font-family: "MS Gothic", "SimHei", sans-serif;
     line-height: 1.8;
     padding: 20px;
     background-color: #fff;
@@ -65,7 +65,7 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
- .jp {
+  .jp {
     display: block;
     font-size: 24px;
     color: #111;
@@ -95,7 +95,11 @@
     max-width: 800px;
     outline: none;
   }
-
+#audioContainer {
+  width: 90vw;      /* 宽度为视口90% */
+  max-width: 600px; /* 最大宽度 */
+  margin-left: 0px;   /* 居中 */
+}
 
 
 
@@ -130,7 +134,9 @@ padding-left: 0px;    /* 左边留15px空白 */
 <div class="sentence">
   <span class="jp">まず<ruby>大<rt>おお</rt></ruby>きな<ruby>時間<rt>じかん</rt></ruby>を<ruby>占<rt>し</rt></ruby>めていたのはやはり<ruby>会社員<rt>かいしゃいん</rt></ruby>としてのお<ruby>仕事<rt>しごと</rt></ruby>です。</span>
   <span class="cn">首先，占用了我大部分时间的，果然还是作为公司职员的工作。</span>
+<div id="audioContainer">
   <audio controls src="audio1.mp3"></audio>
+</div>
 </div>
 
 <div class="sentence">
