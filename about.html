@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta charset="UTF-8" />
 <title>日文句子播放 + 自适应视频</title>
 <style>
@@ -36,21 +35,26 @@
     max-width: 1500px;     /* 最大640px */
     margin: 0 auto 30px auto;/* 居中 */
     margin: 40px auto 60px auto; /* 上边距40px，下边距60px */
+    /*background-color: grey;   可以加个浅色背景方便区分 */
+    padding: 20px 20px;  /* 添加padding，与listeningContainer相同 */
+box-sizing: border-box;
   }
+
   #topVideoContainer video {
     width: 100%;          /* 视频宽度自适应容器 */
     height: auto;         /* 高度自动，保持比例 */
     display: block;
     border-radius: 6px;
     background-color: #000;
+box-sizing: border-box;
   }
 
 #listeningContainer {
   width: 90vw;
   max-width: 1500px;
   margin: 0 auto 60px auto; /* 上下留空，下边距60px */
-  padding: 100 100px;          /* 内容左右留点内边距 */
- /* background-color: grey;  可以加个浅色背景方便区分 */
+  padding: 20px 20px;          /* 内容左右留点内边距 */
+  /*background-color: grey;    可以加个浅色背景方便区分 */
   border-radius: 6px;
   box-sizing: border-box;   /* 包含padding在宽度里 */
 }
@@ -58,12 +62,12 @@
 #listeningContainer .sentence {
   width: 100%;          /* 视频宽度自适应容器 */
   height: auto;         /* 高度自动，保持比例 */
-
-  margin: 20px 0; /* 上下间距 */
-  padding: 15px;
+  margin: 20px 0; /* 上下间距20 左右0 */
+  padding: 40px 15px; 
   background-color: #f9f9f9;
   border-radius: 6px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-sizing: border-box;
 }
 
   .jp {
@@ -97,21 +101,7 @@
     outline: none;
   }
 
-/* 移动端字体缩小 */
-@media screen and (max-width: 800px) {
-  .jp {
-    font-size: 18px;
-  }
-  .cn {
-    font-size: 18px;
-  }
-  ruby {
-    font-size: 19px;
-  }
-  rt {
-    font-size: 14px;
-  }
-}
+
 
 
 
