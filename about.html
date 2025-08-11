@@ -2,90 +2,93 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>日文句子播放 + 自适应视频</title>
 <style>
   body {
     font-family: "MS Gothic", "SimHei", sans-serif;
-    line-height: 1.6;
+    line-height: 1.8;
     padding: 20px;
     background-color: #fff;
+    position: relative; /* 方便绝对定位 */
+  }
+/* 返回按钮样式 */
+  #backToHome {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 16px;
+    background-color: #eee;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
     color: #333;
-    margin: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: background-color 0.3s ease;
+  }
+  #backToHome:hover {
+    background-color: #ccc;
   }
 
- body {
-      position: relative;
-      margin: 0;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-    }
 
-    /* 返回按钮定位 */
-    .back-to-home {
-      position: absolute;
-      top: 20px;   /* 距离页面顶部20像素 */
-      right: 20px; /* 距离页面右侧20像素 */
-      width: 50px; /* 图片宽度 */
-      cursor: pointer;
-    }
-  
   #topVideoContainer {
-    width: 90vw;
-    max-width: 1500px;
-    margin: 40px auto 60px auto;
+    width: 90vw;          /* 视窗宽度90% */
+    max-width: 1500px;     /* 最大640px */
+    margin: 0 auto 30px auto;/* 居中 */
+    margin: 40px auto 60px auto; /* 上边距40px，下边距60px */
   }
   #topVideoContainer video {
-    width: 100%;
-    height: auto;
+    width: 100%;          /* 视频宽度自适应容器 */
+    height: auto;         /* 高度自动，保持比例 */
     display: block;
     border-radius: 6px;
     background-color: #000;
   }
 
-  #listeningContainer {
-    width: 90vw;
-    max-width: 1500px;
-    margin: 0 auto 60px auto;
-    padding: 20px 20px;
-    border-radius: 6px;
-    box-sizing: border-box;
-  }
+#listeningContainer {
+  width: 90vw;
+  max-width: 1500px;
+  margin: 0 auto 60px auto; /* 上下留空，下边距60px */
+  padding: 100 100px;          /* 内容左右留点内边距 */
+ /* background-color: grey;  可以加个浅色背景方便区分 */
+  border-radius: 6px;
+  box-sizing: border-box;   /* 包含padding在宽度里 */
+}
 
-  #listeningContainer .sentence {
-    margin: 15px 0;
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  }
+#listeningContainer .sentence {
+ width: 100%;          /* 视频宽度自适应容器 */
+    height: auto;         /* 高度自动，保持比例 */
+
+  margin: 20px 0; /* 上下间距 */
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
 
   .jp {
     display: block;
-    font-size: 1.2rem;
+    font-size: 24px;
     color: #333;
-    line-height: 1.4;
   }
 
   .cn {
     display: block;
     color: #555;
     margin-top: 5px;
-    font-size: 1.2rem;
-    line-height: 1.4;
+    font-size: 24px;
+
   }
 
   ruby {
     ruby-position: over;
-    font-size: 1.2rem;
+    font-size: 24px;
     color: #333;
   }
 
   rt {
-    font-size: 0.9rem;
+    font-size: 18px;
     color: #666;
   }
-
   audio {
     margin-top: 8px;
     width: 100%;
@@ -93,157 +96,118 @@
     outline: none;
   }
 
-  h1, h2 {
-    font-weight: 700;
-    color: #333;
-    text-align: left;
-    margin-bottom: 20px;
-  }
 
-  @media screen and (max-width: 600px) {
-    body {
-      padding: 10px;
-    }
 
-    #topVideoContainer {
-      width: 100vw;
-      margin: 20px auto 40px auto;
-    }
 
-    #listeningContainer {
-      width: 100vw;
-      padding: 10px 10px;
-      margin-bottom: 40px;
-    }
 
-    .jp, .cn, ruby {
-      font-size: 1rem;
-    }
-    rt {
-      font-size: 0.8rem;
-    }
-
-    audio {
-      max-width: 100%;
-    }
-  }
+h2 {
+  font-size: 30px;
+  color: #333;
+  text-align: left;
+padding-left: 0px;    /* 左边留15px空白 */
+  margin-bottom: 20px;
+}
 </style>
 </head>
 <body>
-  
-<h1>关于我们</h1>
-  <p>这是关于我们页面的内容。</p>
 
-  <!-- 返回首页按钮，带class方便定位 -->
-  <a href="index.html">
-    <img src="back-to-home.jpg" alt="返回首页" class="back-to-home" />
-  </a>
 
-  
+<!-- 返回首页按钮，右上角 -->
+<a id="backToHome" href="index.html">← 返回首页</a>
+
+
+<!-- 自适应视频容器 -->
 <div id="topVideoContainer">
-  <h1>先盲听后对照</h1>
+<h1 id="video">先盲听后对照</h2>
   <video controls src="your-video.mp4"></video>
 </div>
 
+
 <div id="listeningContainer">
-  <h2>句子精听</h2>
+<h2 id="video">句子精听</h2>
+<div class="sentence">
+  <span class="jp">まず<ruby>大<rt>おお</rt></ruby>きな<ruby>時間<rt>じかん</rt></ruby>を<ruby>占<rt>し</rt></ruby>めていたのはやはり<ruby>会社員<rt>かいしゃいん</rt></ruby>としてのお<ruby>仕事<rt>しごと</rt></ruby>です。</span>
+  <span class="cn">首先，占用了我大部分时间的，果然还是作为公司职员的工作。</span>
+  <audio controls src="audio1.mp3"></audio>
+</div>
 
-  <div class="sentence">
-    <span class="jp">
-      お<ruby>久<rt>ひさ</rt></ruby>しぶりです、<ruby>花森<rt>はなもり</rt></ruby>です
-    </span>
-    <span class="cn">好久不见，我是花森。</span>
-    <audio controls src="audio1.mp3"></audio>
-  </div>
+<div class="sentence">
+  <span class="jp"><ruby>以前<rt>いぜん</rt></ruby>の<ruby>動画<rt>どうが</rt></ruby>でもお<ruby>伝<rt>つた</rt></ruby>えしたことはあるんですけれども、</span>
+  <span class="cn">虽然我以前的视频里也有提到过，</span>
+  <audio controls src="audio2.mp3"></audio>
+</div>
 
-  <div class="sentence">
-    <span class="jp">
-      まず、<ruby>初<rt>はじ</rt></ruby>めに<ruby>前回<rt>ぜんかい</rt></ruby>の<ruby>投稿<rt>とうこう</rt></ruby>から
-      <ruby>1年<rt>いちねん</rt></ruby>
-      <ruby>以上<rt>いじょう</rt></ruby><ruby>間<rt>かん</rt></ruby>が<ruby>空<rt>あ</rt></ruby>いてしまい<ruby>本当<rt>ほんとう</rt></ruby>にすみません
-    </span>
-    <span class="cn">首先，非常抱歉距离上次发布已经间隔了1年以上。</span>
-    <audio controls src="audio2.mp3"></audio>
-  </div>
+<div class="sentence">
+  <span class="jp">今私は<ruby>都内<rt>とない</rt></ruby>の<ruby>不動産会社<rt>ふどうさんがいしゃ</rt></ruby>の<ruby>建築<rt>けんちく</rt></ruby>チームで<ruby>集合<rt>しゅうごう</rt></ruby>フルタイム<ruby>勤務<rt>きんむ</rt></ruby>をしています。</span>
+  <span class="cn">现在我在东京的一家房地产公司的建筑团队全职工作。</span>
+  <audio controls src="audio3.mp3"></audio>
+</div>
 
-  <div class="sentence">
-    <span class="jp">
-      <ruby>動画<rt>どうが</rt></ruby>をアップしていなかった<ruby>間<rt>ま</rt></ruby>にも
-    </span>
-    <span class="cn">在我没有上传视频的这段时间里，</span>
-    <audio controls src="audio3.mp3"></audio>
-  </div>
+<div class="sentence">
+  <span class="jp">デザイナーズマンションを<ruby>一等<rt>いっとう</rt></ruby>こう<ruby>企画<rt>きかく</rt></ruby>する<ruby>会社<rt>かいしゃ</rt></ruby>で、</span>
+  <span class="cn">这是一家专门策划设计师公寓的公司，</span>
+  <audio controls src="audio4.mp3"></audio>
+</div>
 
-  <div class="sentence">
-    <span class="jp">
-      Instagramだったり YouTubeのコメントを<ruby>通<rt>つう</rt></ruby>じて
-    </span>
-    <span class="cn">通过 Instagram 以及 YouTube 的评论，</span>
-    <audio controls src="audio4.mp3"></audio>
-  </div>
+<div class="sentence">
+  <span class="jp"><ruby>業務内容<rt>ぎょうむないよう</rt></ruby>としては<ruby>住宅設備<rt>じゅうたくせつび</rt></ruby>であるキッチンだとかお<ruby>風呂<rt>ふろ</rt></ruby><ruby>洗面<rt>せんめん</rt></ruby>あとはフローリングなどの<ruby>仕様<rt>しよう</rt></ruby>の<ruby>選定<rt>せんてい</rt></ruby>をして、</span>
+  <span class="cn">我的工作内容包括选定住宅设备，比如厨房、浴室、洗手台，还有地板等的规格，</span>
+  <audio controls src="audio5.mp3"></audio>
+</div>
 
-  <div class="sentence">
-    <span class="jp">
-      お<ruby>仕事<rt>しごと</rt></ruby><ruby>頑張<rt>がんば</rt></ruby>ってください
-      いつか<ruby>動画<rt>どうが</rt></ruby>アップしてくれると<ruby>嬉<rt>うれ</rt></ruby>しいですと<ruby>応援<rt>おうえん</rt></ruby>のメッセージを
-    </span>
-    <span class="cn">收到了“工作加油”“希望有一天能看到你更新视频”的鼓励留言，</span>
-    <audio controls src="audio5.mp3"></audio>
-  </div>
+<div class="sentence">
+  <span class="jp">お<ruby>見積<rt>みつも</rt></ruby>もりを<ruby>取<rt>と</rt></ruby>って<ruby>注文<rt>ちゅうもん</rt></ruby>ご<ruby>手<rt>て</rt></ruby>して<ruby>建物<rt>たてもの</rt></ruby>の<ruby>竣工<rt>しゅんこう</rt></ruby>まで<ruby>工程管理<rt>こうていかんり</rt></ruby>をするようなお<ruby>仕事<rt>しごと</rt></ruby>です。</span>
+  <span class="cn">进行报价、下订单，并负责从施工到竣工的整个工程管理工作。</span>
+  <audio controls src="audio6.mp3"></audio>
+</div>
 
-  <div class="sentence">
-    <span class="jp">
-      たくさんいただきながらどうしても<ruby>動画<rt>どうが</rt></ruby>が<ruby>上<rt>あ</rt></ruby>げられずにこのタイミングになってしまいました
-    </span>
-    <span class="cn">虽然收到了很多这样的留言，但还是没能上传视频，就这样拖到了现在。</span>
-    <audio controls src="audio6.mp3"></audio>
-  </div>
+<div class="sentence">
+  <span class="jp"><ruby>職種<rt>しょくしゅ</rt></ruby>としては<ruby>一番<rt>いちばん</rt></ruby><ruby>近<rt>ちか</rt></ruby>いのはインテリアデザイナーとかそういう<ruby>枠<rt>わく</rt></ruby>には<ruby>当<rt>あ</rt></ruby>てはまってくるかなと<ruby>思<rt>おも</rt></ruby>います。</span>
+  <span class="cn">如果说职业类别的话，我觉得最接近的是室内设计师之类的职位。</span>
+  <audio controls src="audio7.mp3"></audio>
+</div>
 
-  <div class="sentence">
-    <span class="jp">
-      <ruby>動画<rt>どうが</rt></ruby>をこう<ruby>初<rt>はじ</rt></ruby>めて<ruby>今回<rt>こんかい</rt></ruby><ruby>見<rt>み</rt></ruby>てくださってる<ruby>方<rt>かた</rt></ruby>もいるかとは<ruby>思<rt>おも</rt></ruby>うんですけれども
-    </span>
-    <span class="cn">我想这次也可能有第一次看我视频的朋友，</span>
-    <audio controls src="audio7.mp3"></audio>
-  </div>
+<div class="sentence">
+  <span class="jp">ちょうどですね2<ruby>年<rt>ねん</rt></ruby>ほど<ruby>働<rt>はたら</rt></ruby>かせていただいて<ruby>感想<rt>かんそう</rt></ruby>として、</span>
+  <span class="cn">正好工作了大约两年，谈谈我的感想：</span>
+  <audio controls src="audio8.mp3"></audio>
+</div>
 
-  <div class="sentence">
-    <span class="jp">
-      え<ruby>動画<rt>どうが</rt></ruby>のアップを<ruby>楽<rt>たの</rt></ruby>しみに<ruby>待<rt>ま</rt></ruby>ってくださってた<ruby>方<rt>かた</rt></ruby>がいらっしゃったなら
-      <ruby>本当<rt>ほんとう</rt></ruby>にお<ruby>待<rt>ま</rt></ruby>たせしすぎてしまいました
-    </span>
-    <span class="cn">但如果有一直期待我更新的朋友，真的让大家等太久了。</span>
-    <audio controls src="audio8.mp3"></audio>
-  </div>
+<div class="sentence">
+  <span class="jp">もちろんお<ruby>仕事<rt>しごと</rt></ruby>なので<ruby>非常<rt>ひじょう</rt></ruby>に<ruby>大変<rt>たいへん</rt></ruby>です。</span>
+  <span class="cn">当然，工作非常辛苦。</span>
+  <audio controls src="audio9.mp3"></audio>
+</div>
 
-  <div class="sentence">
-    <span class="jp">
-      <ruby>動画<rt>どうが</rt></ruby>がアップできなかった<ruby>理由<rt>りゆう</rt></ruby>は<ruby>様々<rt>さまざま</rt></ruby>あるんですけれども
-    </span>
-    <span class="cn">没能上传视频的原因有很多，</span>
-    <audio controls src="audio9.mp3"></audio>
-  </div>
+<div class="sentence">
+  <span class="jp">ただもちろん<ruby>会社員<rt>かいしゃいん</rt></ruby>なので<ruby>給料<rt>きゅうりょう</rt></ruby>もいただいてますし、</span>
+  <span class="cn">不过作为公司职员，也能拿到工资，</span>
+  <audio controls src="audio10.mp3"></audio>
+</div>
 
-  <div class="sentence">
-    <span class="jp">
-      <ruby>大<rt>おお</rt></ruby>きく<ruby>分<rt>わ</rt></ruby>けて
-      <ruby>4つ<rt>よっつ</rt></ruby>
-      ぐらいあるので
-    </span>
-    <span class="cn">大致可以分成四个方面，</span>
-    <audio controls src="audio10.mp3"></audio>
-  </div>
+<div class="sentence">
+  <span class="jp"><ruby>建物<rt>たてもの</rt></ruby>のサイズにもよるんですけれども、マンション1<ruby>棟<rt>とう</rt></ruby>となると<ruby>建築費用<rt>けんちくひよう</rt></ruby>だいたい<ruby>小<rt>ちい</rt></ruby>さくても2<ruby>億<rt>おく</rt></ruby>から3<ruby>億円<rt>おくえん</rt></ruby><ruby>半<rt>なか</rt></ruby>ばぐらいかかってきます。</span>
+  <span class="cn">虽然也要看建筑的规模，但一栋公寓的建筑费用大致至少在2亿到3亿多日元左右。</span>
+  <audio controls src="audio11.mp3"></audio>
+</div>
 
-  <div class="sentence">
-    <span class="jp">
-      この
-      <ruby>1年以上<rt>いちねんいじょう</rt></ruby>
-      <ruby>空白<rt>くうはく</rt></ruby>の<ruby>間<rt>あいだ</rt></ruby>に<ruby>私<rt>わたし</rt></ruby>が<ruby>何<rt>なに</rt></ruby>をしていたかっていうのを<ruby>簡単<rt>かんたん</rt></ruby>に<ruby>今日<rt>きょう</rt></ruby>はお<ruby>伝<rt>つた</rt></ruby>えできればと<ruby>思<rt>おも</rt></ruby>います
-    </span>
-    <span class="cn">今天想简单和大家分享一下，这一年多的空白期我在做些什么。</span>
-    <audio controls src="audio11.mp3"></audio>
-  </div>
+<div class="sentence">
+  <span class="jp"><ruby>大変<rt>たいへん</rt></ruby>だとはいえこういった<ruby>大<rt>おお</rt></ruby>きなプロジェクトに<ruby>関<rt>かか</rt></ruby>われるっていうところにとても<ruby>魅力<rt>みりょく</rt></ruby>を<ruby>感<rt>かん</rt></ruby>じています。</span>
+  <span class="cn">虽然辛苦，但能参与这样的大型项目，我感到非常有吸引力。</span>
+  <audio controls src="audio12.mp3"></audio>
+</div>
 
+<div class="sentence">
+  <span class="jp"><ruby>去年<rt>きょねん</rt></ruby>までは<ruby>会社<rt>かいしゃ</rt></ruby>の<ruby>人数<rt>にんずう</rt></ruby>も<ruby>本当<rt>ほんとう</rt></ruby>に10<ruby>人<rt>にん</rt></ruby><ruby>少<rt>すく</rt></ruby>ししかなかったので<ruby>残業時間<rt>ざんぎょうじかん</rt></ruby>もかなりありましたが、</span>
+  <span class="cn">直到去年，公司人数真的只有十几个人，加班时间也很多，</span>
+  <audio controls src="audio13.mp3"></audio>
+</div>
+
+<div class="sentence">
+  <span class="jp"><ruby>今年<rt>ことし</rt></ruby>に<ruby>入<rt>はい</rt></ruby>って<ruby>人数<rt>にんずう</rt></ruby>も<ruby>増<rt>ふ</rt></ruby>えてたくさんのメンバーの<ruby>方<rt>かた</rt></ruby>にも<ruby>入社<rt>にゅうしゃ</rt></ruby>いただき、だいたい7<ruby>時半<rt>じはん</rt></ruby>ぐらいには<ruby>退社<rt>たいしゃ</rt></ruby>できるようになってきました。</span>
+  <span class="cn">今年人数增加了，许多新成员加入，现在大约能在七点半左右下班了。</span>
+  <audio controls src="audio14.mp3"></audio>
+</div>
 </div>
 
 </body>
