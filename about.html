@@ -14,6 +14,22 @@
     margin: 0;
   }
 
+ body {
+      position: relative;
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    /* 返回按钮定位 */
+    .back-to-home {
+      position: absolute;
+      top: 20px;   /* 距离页面顶部20像素 */
+      right: 20px; /* 距离页面右侧20像素 */
+      width: 50px; /* 图片宽度 */
+      cursor: pointer;
+    }
+  
   #topVideoContainer {
     width: 90vw;
     max-width: 1500px;
@@ -114,7 +130,16 @@
 </style>
 </head>
 <body>
+  
+<h1>关于我们</h1>
+  <p>这是关于我们页面的内容。</p>
 
+  <!-- 返回首页按钮，带class方便定位 -->
+  <a href="index.html">
+    <img src="back-to-home.jpg" alt="返回首页" class="back-to-home" />
+  </a>
+
+  
 <div id="topVideoContainer">
   <h1>先盲听后对照</h1>
   <video controls src="your-video.mp4"></video>
